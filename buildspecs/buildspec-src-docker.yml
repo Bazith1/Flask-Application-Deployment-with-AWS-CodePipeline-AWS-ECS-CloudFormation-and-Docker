@@ -9,7 +9,7 @@ phases:
       - export IMAGE_TAG=$CODEBUILD_RESOLVED_SOURCE_VERSION
       - echo $IMAGE_TAG > image_tag.txt  # Save the image tag to a file
       - ls -l # List the files to verify image_tag.txt is created
-      - ls buildspecs
+      
 
   build:
     commands:
@@ -21,8 +21,8 @@ phases:
       - echo "Pushing Docker image to Docker Hub..."
       - docker push bazith1/my-flask-app:$IMAGE_TAG
       - echo "Preserving image_tag.txt as an artifact"
-      - cp buildspecs/image_tag.txt /tmp/image_tag.txt 
+      - cp image_tag.txt /tmp/image_tag.txt 
 
 artifacts:
   files:
-    - buildspecs/image_tag.txt
+    - image_tag.txt
