@@ -22,8 +22,8 @@
     - name: Read the image tag from the file
       shell: |
         echo "Listing buildspecs directory contents"
-        ls -l buildspecs
-        cat buildspecs/image_tag.txt
+        ls -l 
+        cat image_tag.txt
       register: image_tag
       failed_when: image_tag.rc != 0
       changed_when: false
