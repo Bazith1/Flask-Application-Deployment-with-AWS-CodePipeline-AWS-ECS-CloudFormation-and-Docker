@@ -8,6 +8,7 @@ phases:
       - echo "Using CodeBuild commit hash as image tag..."
       - export IMAGE_TAG=$CODEBUILD_RESOLVED_SOURCE_VERSION
       - echo $IMAGE_TAG > image_tag.txt  # Save the image tag to a file
+      - ls -l # List the files to verify image_tag.txt is created
 
   build:
     commands:

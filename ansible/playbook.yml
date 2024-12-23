@@ -21,7 +21,7 @@
 
     - name: Read the image tag from the file
       shell: |
-        cat image_tag.txt
+        cat ./buildspecs/image_tag.txt
       register: image_tag
       failed_when: image_tag.rc != 0
       changed_when: false
