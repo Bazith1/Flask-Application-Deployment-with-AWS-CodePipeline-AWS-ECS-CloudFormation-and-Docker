@@ -14,7 +14,7 @@ RUN pip install flask==2.0.0 werkzeug==2.0.0
 RUN pip install pytest
 
 # Copy the tests directory into the container
-COPY tests/ /app/tests/
+COPY tests/ /app/tests
 
 
 # Make port 5000 available to the world outside this container
