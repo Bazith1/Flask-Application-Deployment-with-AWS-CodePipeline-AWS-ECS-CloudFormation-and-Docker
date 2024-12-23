@@ -19,21 +19,6 @@
       failed_when: cluster_info.rc != 0
       changed_when: false
 
-    - name: Read the image tag from the file
-      shell: |
-        echo "Listing buildspecs directory contents"
-        ls -l 
-        cat image_tag.txt
-      register: image_tag
-      failed_when: image_tag.rc != 0
-      changed_when: false
-
-    - name: Replace image tag in deployment.yaml
-      shell: |
-        echo "Updating deployment.yaml with the image tag..."
-        sed -i "s/\${IMAGE_TAG}/{{ image_tag.stdout }}/g" deployment.yaml
-      when: image_tag.rc == 0
-
     - name: Apply Kubernetes manifests for deployment
       shell: |
         echo "Applying Kubernetes Manifests..."
