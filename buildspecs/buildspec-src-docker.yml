@@ -20,6 +20,8 @@ phases:
     commands:
       - echo "Pushing Docker image to Docker Hub..."
       - docker push bazith1/my-flask-app:$IMAGE_TAG
+      - echo "Preserving image_tag.txt as an artifact"
+      - cp buildspecs/image_tag.txt /tmp/image_tag.txt 
 
 artifacts:
   files:
