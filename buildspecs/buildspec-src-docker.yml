@@ -18,5 +18,5 @@ phases:
       - echo "Build and push successful"
 artifacts:
   files:
-    - k8s/*
+    - ansible/*
   discard-paths: yes
