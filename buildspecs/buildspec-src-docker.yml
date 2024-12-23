@@ -7,7 +7,7 @@ phases:
       - echo $DOCKER_PASSWORD | docker login --username $DOCKER_USERNAME --password-stdin
       - ls -l # List the files to verify image_tag.txt is created
 
-  build:
+  pre-build:
     commands:
       - echo "Building Docker image with 'latest' tag..."
       - docker build -f src/Dockerfile -t bazith1/my-flask-app:latest .
