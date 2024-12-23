@@ -17,7 +17,7 @@ phases:
       - echo "Pushing Docker image to Docker Hub with 'latest' tag..."
       - docker push bazith1/my-flask-app:latest
       - echo "Preserving image_tag.txt as an artifact"
-   
-   artifacts:
+      
+artifacts:
   files:
     - image_tag.txt
