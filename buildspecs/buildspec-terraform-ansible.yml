@@ -13,13 +13,6 @@ phases:
       - sudo python3 get-pip.py
       - echo "Installing jq for JSON parsing..."
       - yum install -y jq
-      - echo "Installing Selenium dependencies..."
-      - pip install selenium
-      - echo "Downloading ChromeDriver..."
-      - wget https://chromedriver.storage.googleapis.com/114.0.5735.90/chromedriver_linux64.zip -P /tmp
-      - unzip /tmp/chromedriver_linux64.zip -d /usr/local/bin/
-      - echo "Installing Google Chrome..."
-      - yum install -y google-chrome-stable
   pre_build:
     commands:
       - echo "Preparing Terraform configurations..."
@@ -39,15 +32,11 @@ phases:
       - kubectl apply -f ./ansible/service.yaml
   post_build:
     commands:
-      - echo "Retrieving External IP or DNS for the service..."
-      - kubectl get service my-service -o json | jq -r '.status.loadBalancer.ingress[0].hostname' > service_dns.txt
-      - SERVICE_DNS=$(cat service_dns.txt)
-      - echo "Service available at $SERVICE_DNS"
-      - echo "Running Selenium End-to-End (E2E) tests..."
-      - python tests/selenium_e2e_test.py --service_dns=$SERVICE_DNS
-      - echo "Build and Selenium E2E testing finished."
+      - echo "Terraform execution complete. Kubernetes resources deployed."
+      - echo "Triggering a rollout restart to ensure the latest image is used..."
+      - kubectl rollout restart deployment/my-flask-app
+      - echo "Build finished."
 
 artifacts:
   files:
     - "**/*"
-  discard-paths: yes

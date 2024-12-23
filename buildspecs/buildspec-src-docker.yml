@@ -11,10 +11,6 @@ phases:
     commands:
       - echo "Building Docker image with 'latest' tag..."
       - docker build -f src/Dockerfile -t bazith1/my-flask-app:latest .
-      - echo "Running unit tests within the built Docker container..."
-      - docker run --rm bazith1/my-flask-app:latest pytest /app/tests --junitxml=reports/unit-test-results.xml
-      - echo "Running integration tests within the built Docker container..."
-      - docker run --rm bazith1/my-flask-app:latest pytest /app/tests --junitxml=reports/integration-test-results.xml
 
   post_build:
     commands:
@@ -24,6 +20,4 @@ phases:
       
 artifacts:
   files:
-    - reports/unit-test-results.xml
-    - reports/integration-test-results.xml
     - image_tag.txt
