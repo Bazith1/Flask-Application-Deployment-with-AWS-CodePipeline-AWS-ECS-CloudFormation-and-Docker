@@ -33,6 +33,8 @@ phases:
   post_build:
     commands:
       - echo "Terraform execution complete. Kubernetes resources deployed."
+      - echo "Triggering a rollout restart to ensure the latest image is used..."
+      - kubectl rollout restart deployment/my-flask-app
       - echo "Build finished."
 
 artifacts:
