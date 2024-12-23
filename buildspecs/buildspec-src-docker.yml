@@ -11,11 +11,13 @@ phases:
       - export IMAGE_TAG=$(git rev-parse --short HEAD)  # Use Git commit hash as the version tag
       - echo $IMAGE_TAG > image_tag.txt  # Save the image tag for later use
       - docker build -f src/Dockerfile -t bazith1/my-flask-app:$IMAGE_TAG .
+      - docker tag bazith1/my-flask-app:$IMAGE_TAG bazith1/my-flask-app:latest
   post_build:
     commands:
       - echo "Pushing Docker image to Docker Hub..."
       - docker push bazith1/my-flask-app:$IMAGE_TAG
       - echo "Build and push successful"
+      - docker push bazith1/my-flask-app:latest 
 artifacts:
   files:
     - image_tag.txt 
