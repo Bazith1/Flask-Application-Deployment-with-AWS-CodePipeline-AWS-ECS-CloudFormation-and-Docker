@@ -7,16 +7,16 @@ phases:
       - echo $DOCKER_PASSWORD | docker login --username $DOCKER_USERNAME --password-stdin
   build:
     commands:
-      - echo "Starting build phase..."
-      - docker pull bazith1/my-flask-app:latest || true
-      - docker build -f src/Dockerfile --cache-from bazith1/my-flask-app:latest -t my-flask-app:latest .
-      - docker tag my-flask-app:latest bazith1/my-flask-app:latest  # Use latest tag
+      - echo "Building Docker image..."
+      - export IMAGE_TAG=$(git rev-parse --short HEAD)  # Use Git commit hash as the version tag
+      - echo $IMAGE_TAG > image_tag.txt  # Save the image tag for later use
+      - docker build -f src/Dockerfile -t bazith1/my-flask-app:$IMAGE_TAG .
   post_build:
     commands:
-      - echo "Starting post-build phase..."
-      - docker push bazith1/my-flask-app:latest  # Push with latest tag
+      - echo "Pushing Docker image to Docker Hub..."
+      - docker push bazith1/my-flask-app:$IMAGE_TAG
       - echo "Build and push successful"
 artifacts:
   files:
-    - ansible/*
+    - image_tag.txt 
   discard-paths: yes
