@@ -11,8 +11,6 @@ phases:
       - echo "Installing pip..."
       - curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
       - sudo python3 get-pip.py
-      - echo "Installing Ansible..."
-      - pip install ansible boto3  # Added `boto3` for AWS-related tasks
       - echo "Installing jq for JSON parsing..."
       - yum install -y jq
   pre_build:
@@ -26,12 +24,16 @@ phases:
       - ./terraform/terraform-eks.sh
       - echo "Extracting EKS cluster details..."
       - terraform -chdir=terraform output -json > eks-cluster-output.json
-
+      - echo "Setting up kubeconfig for EKS..."
+      - aws eks --region $(jq -r '.region.value' eks-cluster-output.json) update-kubeconfig --name $(jq -r '.cluster_name.value' eks-cluster-output.json)
+      - echo "Deploying Kubernetes resources..."
+      - kubectl apply -f ansible/deployment.yml
+      - kubectl apply -f ansible/service.yml
   post_build:
     commands:
-      - echo "Terraform execution complete. Build finished."
-      - echo "Running Ansible playbook to deploy the app..."
-      - ansible-playbook -i localhost, ansible/playbook.yml --extra-vars "eks_cluster_name=$(jq -r '.cluster_name.value' eks-cluster-output.json)"
+      - echo "Terraform execution complete. Kubernetes resources deployed."
+      - echo "Build finished."
+
 artifacts:
   files:
     - "**/*"
