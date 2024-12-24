@@ -25,7 +25,7 @@ phases:
 
   post_build:
     commands:
-      - echo "Post-build phase: Terraform destroy execution complete."
+      - echo "Terraform destroy execution complete."
 
 artifacts:
   files:
