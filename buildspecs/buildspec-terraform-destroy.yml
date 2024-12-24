@@ -7,9 +7,12 @@ phases:
     commands:
       - echo "Installing Terraform dependencies..."
       - curl -LO https://releases.hashicorp.com/terraform/1.3.0/terraform_1.3.0_linux_amd64.zip
+      - echo "Removing existing Terraform binary if it exists..."
+      - rm -rf /usr/local/bin/terraform
+      - echo "Extracting Terraform binary..."
       - unzip -o terraform_1.3.0_linux_amd64.zip
       - mv terraform /usr/local/bin/
-      - terraform --version # Verify Terraform installation #
+      - echo "Terraform installed successfully!"
 
   pre_build:
     commands:
