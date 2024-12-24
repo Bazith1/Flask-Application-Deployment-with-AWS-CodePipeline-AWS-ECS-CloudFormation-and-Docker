@@ -26,8 +26,9 @@ phases:
 
   build:
     commands:
+      - ls -R
       - echo "Running Terraform destroy to delete the EKS cluster..."
-      - chmod +x ./terraform/terraform-destroy.sh
+      - chmod +x terraform/terraform-destroy.sh
       - ./terraform/terraform-destroy.sh
 
   post_build:
