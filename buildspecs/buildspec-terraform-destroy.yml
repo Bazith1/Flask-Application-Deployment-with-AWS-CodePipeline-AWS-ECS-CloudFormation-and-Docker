@@ -7,14 +7,13 @@ phases:
       terraform: 1.3
     commands:
       - echo "Installing Terraform dependencies..."
-      - pip install -r requirements.txt  # Optional, if you have Python dependencies
       - curl -LO https://releases.hashicorp.com/terraform/1.3.0/terraform_1.3.0_linux_amd64.zip
       - unzip terraform_1.3.0_linux_amd64.zip
       - mv terraform /usr/local/bin/
 
   pre_build:
     commands:
-      - echo "Pre-build phase: Verifying Terraform installation..."
+      - echo "Verifying Terraform installation..."
       - terraform --version
       - aws sts get-caller-identity
 
