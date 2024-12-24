@@ -5,15 +5,20 @@ phases:
     runtime-versions:
       python: 3.8
     commands:
-      - echo "Installing Terraform dependencies..."
-      - curl -LO https://releases.hashicorp.com/terraform/1.3.0/terraform_1.3.0_linux_amd64.zip
-      - echo "Removing existing Terraform binary if it exists..."
-      - rm -rf /usr/local/bin/terraform
-      - echo "Extracting Terraform binary..."
-      - unzip -o terraform_1.3.0_linux_amd64.zip
-      - mv terraform /usr/local/bin/
-      - echo "Terraform installed successfully!"
-
+      - echo "Checking if Terraform is already installed..."
+      - |
+        if command -v terraform >/dev/null 2>&1; then
+          echo "Terraform is already installed, skipping installation."
+        else
+          echo "Installing Terraform..."
+          curl -LO https://releases.hashicorp.com/terraform/1.3.0/terraform_1.3.0_linux_amd64.zip
+          echo "Removing any existing Terraform binary or directory..."
+          rm -rf /usr/local/bin/terraform
+          echo "Extracting Terraform binary..."
+          unzip -o terraform_1.3.0_linux_amd64.zip
+          mv terraform /usr/local/bin/
+          echo "Terraform installed successfully!"
+        fi
   pre_build:
     commands:
       - echo "Verifying AWS CLI credentials..."
