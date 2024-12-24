@@ -4,17 +4,16 @@ phases:
   install:
     runtime-versions:
       python: 3.8
-      terraform: 1.3
     commands:
       - echo "Installing Terraform dependencies..."
       - curl -LO https://releases.hashicorp.com/terraform/1.3.0/terraform_1.3.0_linux_amd64.zip
       - unzip terraform_1.3.0_linux_amd64.zip
       - mv terraform /usr/local/bin/
+      - terraform --version # Verify Terraform installation
 
   pre_build:
     commands:
-      - echo "Verifying Terraform installation..."
-      - terraform --version
+      - echo "Verifying AWS CLI credentials..."
       - aws sts get-caller-identity
 
   build:
@@ -31,4 +30,4 @@ artifacts:
   files:
     - terraform-destroy.sh
     - buildspec-terraform-destroy.yml
-    - .terraform/**/*    # Save Terraform files for reference, if needed
+    - .terraform/**/*
