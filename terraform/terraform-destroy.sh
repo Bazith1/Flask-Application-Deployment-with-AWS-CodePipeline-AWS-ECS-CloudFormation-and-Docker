@@ -3,6 +3,8 @@
 # Set the AWS region (change if needed)
 AWS_REGION="ap-south-1"
 
+cd ./terraform 
+
 # Initialize Terraform
 terraform init -input=false
 
