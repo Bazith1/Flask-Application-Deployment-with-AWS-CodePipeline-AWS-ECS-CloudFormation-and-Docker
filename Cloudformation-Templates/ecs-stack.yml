@@ -29,7 +29,7 @@ Resources:
       VersionDescription: 1
       LaunchTemplateData:
         InstanceType: !Ref InstanceType
-        ImageId: ami-xxxxxxxxx  # Replace with the ECS optimized AMI ID
+        ImageId: ami-04b4f1a9cf54c11d0  # Replace with the ECS optimized AMI ID
         SecurityGroupIds:
           - !Ref MySecurityGroup
         UserData: |
