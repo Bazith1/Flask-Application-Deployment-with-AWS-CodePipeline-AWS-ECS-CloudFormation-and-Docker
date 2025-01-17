@@ -7,7 +7,7 @@ Resources:
   VPCStack:
     Type: AWS::CloudFormation::Stack
     Properties:
-      TemplateURL: "https://s3.amazonaws.com/your-bucket/vpc-stack.yaml"  # Replace with the actual URL for VPC stack
+      TemplateURL: "https://s3.amazonaws.com/my-cloudformation-templates-10/flask-application-templates/vpc-stack.yml"  # Replace with the actual URL for VPC stack
       Parameters:
         VpcCIDR: "10.0.0.0/16"
 
@@ -15,7 +15,7 @@ Resources:
   ECSStack:
     Type: AWS::CloudFormation::Stack
     Properties:
-      TemplateURL: "https://s3.amazonaws.com/your-bucket/ecs-stack.yaml"  # Replace with the actual URL for ECS stack
+      TemplateURL: "https://s3.amazonaws.com/my-cloudformation-templates-10/flask-application-templates/ecs-stack.yml"  # Replace with the actual URL for ECS stack
       Parameters:
         InstanceType: "t3.micro"
         VpcID: !GetAtt VPCStack.Outputs.VpcID
@@ -25,7 +25,7 @@ Resources:
   WAFStack:
     Type: AWS::CloudFormation::Stack
     Properties:
-      TemplateURL: "https://s3.amazonaws.com/your-bucket/waf-stack.yaml"  # Replace with the actual URL for WAF stack
+      TemplateURL: "https://s3.amazonaws.com/my-cloudformation-templates-10/flask-application-templates/waf-stack.yml"  # Replace with the actual URL for WAF stack
       Parameters:
         ALBArn: !GetAtt ECSStack.Outputs.ALBArn
 
