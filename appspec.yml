@@ -4,7 +4,7 @@ Resources:
   - TargetService:
       Type: AWS::ECS::Service
       Properties:
-        TaskDefinition: "flask-task-definition:latest"
+        TaskDefinition: "python-application:latest"
         LoadBalancerInfo:
           ContainerName: "flask-container"
           ContainerPort: 80
