@@ -1,0 +1,21 @@
+
+version: 0.0
+Resources:
+  - TargetService:
+      Type: AWS::ECS::Service
+      Properties:
+        TaskDefinition: "flask-task-definition:latest"
+        LoadBalancerInfo:
+          ContainerName: "flask-container"
+          ContainerPort: 80
+        ContainerName: "flask-container"
+        ContainerPort: 80
+        PortMappings:
+          - ContainerPort: 80
+Hooks:
+  BeforeInstall:
+    - location: scripts/stop-services.sh
+      timeout: 300
+  AfterInstall:
+    - location: scripts/start-services.sh
+      timeout: 300
